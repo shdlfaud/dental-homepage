@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>서울미소치과</title>
+  <style>
+    :root {
+      --ink: #1f2a37;
+      --muted: #5b6676;
+      --surface: #ffffff;
+      --soft: #f4f6f8;
+      --accent: #1d6f73;
+      --accent-soft: #e3f1f1;
+      --line: #dfe4ea;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Malgun Gothic", "맑은 고딕", -apple-system, "Apple SD Gothic Neo", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.6;
+      font-size: 16px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: var(--accent); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    /* 맨 위 메뉴 줄 */
+    .topbar { position: sticky; top: 0; z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
+    .brand { font-weight: 700; font-size: 18px; text-decoration: none; color: var(--ink); }
+    .nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .nav a { color: var(--ink); text-decoration: none; padding: 10px 12px; min-height: 44px; display: inline-flex; align-items: center; border-radius: 8px; transition: background 200ms; }
+    .nav a:hover { background: var(--soft); }
+
+    /* 1. 첫 화면 — 진료시간·전화·위치 */
+    .hero { padding: 80px 0 64px; background: linear-gradient(180deg, var(--accent-soft), var(--surface)); }
+    .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.3; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .hero .sub { font-size: 18px; color: var(--muted); margin: 0 0 32px; }
+    .key-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .key { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px; }
+    .key strong { display: block; color: var(--accent); font-size: 14px; margin-bottom: 6px; }
+    .key span, .key a { font-size: 18px; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .hero-photo { margin: 0 0 32px; }
+    .hero-photo img { display: block; width: 100%; max-width: 420px; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; cursor: pointer; transition: opacity 200ms; }
+    .btn:hover { opacity: 0.88; }
+
+    section { padding: 72px 0; }
+    section h2 { font-size: 28px; margin: 0 0 20px; letter-spacing: -0.01em; }
+    .lead { color: var(--muted); margin: 0 0 28px; }
+
+    /* 2. 병원 소개 */
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .placeholder { aspect-ratio: 4 / 3; background: var(--soft); border: 1px dashed #b8c2cc; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+    .sub-list { margin: 0; padding-left: 20px; color: var(--muted); }
+    .sub-list li { margin-bottom: 8px; }
+
+    /* 3. 진료 안내 */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--soft); border-radius: 14px; padding: 28px 24px; }
+    .card .icon { width: 36px; height: 36px; color: var(--accent); margin-bottom: 14px; }
+    .card h3 { margin: 0 0 8px; font-size: 19px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    /* 4. 오시는 길 */
+    .visit { background: var(--soft); }
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .info-row { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .info-row strong { display: block; color: var(--accent); font-size: 14px; margin-bottom: 4px; }
+    .info-row span { color: var(--ink); }
+    .map iframe { width: 100%; height: 280px; border: 0; border-radius: 12px; display: block; }
+    .map-address { margin: 12px 0 4px; color: var(--ink); }
+    .map-link { display: inline-block; min-height: 44px; line-height: 44px; color: var(--accent); font-weight: 600; text-decoration: underline; }
+
+    /* 5. 맨 아래 정보 */
+    footer { background: var(--ink); color: #d6dde5; padding: 40px 0; font-size: 14px; }
+    footer .wrap { display: grid; gap: 6px; }
+    footer strong { color: #fff; }
+
+    @media (max-width: 760px) {
+      .intro-grid, .visit-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .key-grid { grid-template-columns: 1fr; }
+      .hero { padding: 56px 0 48px; }
+      .nav { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top">서울미소치과</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#about">병원 소개</a>
+        <a href="#treatments">진료 안내</a>
+        <a href="#visit">오시는 길</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 1. 첫 화면: 진료시간 · 전화 · 위치 -->
+    <div class="hero">
+      <div class="wrap">
+        <h1>편안하게 웃을 수 있도록,<br />서울미소치과가 함께합니다</h1>
+        <p class="sub">처음 오시는 분도 진료시간과 위치를 보고 바로 예약하실 수 있습니다.</p>
+        <div class="key-grid">
+          <div class="key">
+            <strong>진료시간</strong>
+            <!-- 여기고치기: 진료시간 -->
+            <span>월·화·목·금 09:30~18:30 · 수 09:30~20:30 · 토 09:30~14:30</span>
+            <!-- 여기고치기: 점심시간 -->
+            <span>점심시간 13:30~14:30</span>
+          </div>
+          <div class="key">
+            <strong>전화 예약</strong>
+            <!-- 여기고치기: 전화 -->
+            <a class="tel" data-phone>010-9275-0410</a>
+          </div>
+          <div class="key">
+            <strong>위치</strong>
+            <span>강원도 원주시 나비허리길 49, 4층</span>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="images/front.jpg" alt="서울미소치과 병원 사진" loading="eager" />
+        </figure>
+        <a class="btn" href="#visit">오시는 길 보기</a>
+      </div>
+    </div>
+
+    <!-- 2. 병원 소개: 원장 · 장비 · 진료철학 -->
+    <section id="about">
+      <div class="wrap intro-grid">
+        <div>
+          <h2>병원 소개</h2>
+          <p class="lead">서울미소치과는 원주에서 수면진정 치과 진료와 잇몸 관리를 함께 하는 치과입니다. 치과가 무서워 오랫동안 치료를 미뤄 오셨다면, 수면진정으로 긴장을 줄이고 편안하게 치료받으실 수 있습니다. 치료가 끝난 뒤에는 EMS의 GBT 프로그램으로 잇몸과 치아를 꾸준히 관리해 드립니다. 임플란트, 치주치료, 라미네이트 등 필요한 치료를 차근차근 설명드리고, 환자분의 구강 건강을 지키는 주치의가 되겠습니다.</p>
+          <h3 style="font-size:18px; margin: 0 0 8px;">원장 소개</h3>
+          <ul class="sub-list">
+            <li>서울대학교 치의학대학원 졸업</li>
+          </ul>
+          <h3 style="font-size:18px; margin: 0 0 8px;">장비</h3>
+          <ul class="sub-list">
+            <li>프라임 스캐너</li>
+          </ul>
+        </div>
+        <div class="placeholder" role="img" aria-label="병원 사진 자리">병원 사진 자리</div>
+      </div>
+    </section>
+
+    <!-- 3. 진료 안내: 임플란트 · 교정 · 일반진료 -->
+    <section id="treatments" style="background: var(--soft);">
+      <div class="wrap">
+        <h2>진료 안내</h2>
+        <p class="lead">환자분의 상태에 맞춘 진료를 안내드립니다.</p>
+        <div class="cards">
+          <div class="card">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h16M12 4v16"/></svg>
+            <h3>임플란트 · 수면진료</h3>
+            <!-- 여기고치기: 진료 안내(임플란트) -->
+            <p>상실된 치아를 자연치아에 가깝게 되돌리는 치료입니다. 긴장되는 분은 수면진정 진료로 편안하게 받으실 수 있습니다.</p>
+          </div>
+          <div class="card">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3c-2.5 0-4 1.5-4 4 0 1.5-.5 2.5-1 4-.6 1.8-1 4-1 6 0 1.5 1 2 2 2s1.5-1.5 2-3c.3-1 .6-1.5 1-1.5s.7.5 1 1.5c.5 1.5 1 3 2 3s2-.5 2-2c0-2-.4-4.2-1-6-.5-1.5-1-2.5-1-4 0-2.5-1.5-4-4-4z"/></svg>
+            <h3>GBT 치주치료</h3>
+            <p>EMS의 GBT 프로그램으로 잇몸과 치아를 꾸준히 관리해 드립니다.</p>
+          </div>
+          <div class="card">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+            <h3>심미 · 라미네이트</h3>
+            <p>자연스럽고 아름다운 미소를 위한 심미 치료와 라미네이트를 안내드립니다.</p>
+          </div>
+          <div class="card">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            <h3>일반 진료</h3>
+            <p>충치·잇몸 질환 등 일상적인 치아 건강을 살펴봅니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 오시는 길: 주소 · 교통 · 주차 -->
+    <section id="visit" class="visit">
+      <div class="wrap visit-grid">
+        <div>
+          <h2>오시는 길</h2>
+          <div class="info-row">
+            <strong>주소</strong>
+            <span>강원도 원주시 나비허리길 49, 4층</span>
+          </div>
+          <div class="info-row">
+            <strong>교통</strong>
+            <span>교통 안내는 원장님과 확인 후 채워 주세요</span>
+          </div>
+          <div class="info-row">
+            <strong>주차</strong>
+            <span>건물 주차 가능 · 주차가 어려울 때는 나이스주차장을 이용해 주세요</span>
+          </div>
+        </div>
+        <div class="map">
+          <iframe
+            src="https://maps.google.com/maps?q=%EA%B0%95%EC%9B%90%EB%8F%84%20%EC%9B%90%EC%A3%BC%EC%8B%9C%20%EB%82%98%EB%B9%84%ED%97%88%EB%A6%AC%EA%B8%B849%2C%204%EC%B8%B5&output=embed"
+            title="서울미소치과 위치 지도"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p class="map-address">강원도 원주시 나비허리길 49, 4층</p>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%EA%B0%95%EC%9B%90%EB%8F%84%20%EC%9B%90%EC%A3%BC%EC%8B%9C%20%EB%82%98%EB%B9%84%ED%97%88%EB%A6%AC%EA%B8%B849%2C%204%EC%B8%B5" target="_blank" rel="noopener">구글 지도에서 길찾기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. 맨 아래 정보: 상호 · 주소 · 전화 · 사업자 -->
+  <footer>
+    <div class="wrap">
+      <strong>서울미소치과</strong>
+      <span>주소: 강원도 원주시 나비허리길 49, 4층</span>
+      <span>전화: <!-- 여기고치기: 전화--><a class="tel" data-phone style="color:inherit;">010-9275-0410</a></span>
+      <span>대표 원장 노일명 · 사업자등록번호 2386700710</span>
+      <span>인스타그램: <a href="https://www.instagram.com/ilmyeongno" target="_blank" rel="noopener" style="color:inherit;">@ilmyeongno</a></span>
+      <span>© 서울미소치과. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- 화면의 전화번호만 고치면 누를 때 거는 번호도 같이 바뀝니다 -->
+  <script>document.querySelectorAll("a[data-phone]").forEach(a => a.href = "tel:" + a.textContent.replace(/[^0-9]/g, ""));</script>
+</body>
+</html>
